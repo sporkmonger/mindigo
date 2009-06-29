@@ -1,0 +1,8 @@
+*.cmo
+*.cmi
+lib/mindigo/mindigo
+grammar.ml
+grammar.mli
+lexer.ml
+lib/calc
+go.sh
