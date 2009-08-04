@@ -1,0 +1,18 @@
+FILES = ast grammar lexer
+CMO_FILES = $(addsuffix .cmo, $(FILES))
+
+# Let's do aggressive inlining on native code
+OCAMLOPTFLAGS += -inline 10
+
+# These need to exist before ocamldep runs.
+OCamlGeneratedFiles(lexer.ml grammar.mli grammar.ml)
+
+# Build the library as a static library.
+# This builds libbug.a on Unix/OSX, or libbug.lib on Win32.
+# Note that the source files are listed _without_ suffix.
+OCamlLibrary(libmindigo, $(FILES))
+
+mindigo_top: $(CMO_FILES)
+  $(OCAMLFIND) $(OCAMLMKTOP) $(OCAML_LIBS) $(CMO_FILES) -o $@
+
+.DEFAULT: libmindigo.a mindigo_top

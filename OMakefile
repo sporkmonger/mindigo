@@ -1,0 +1,13 @@
+USE_OCAMLFIND = true
+BYTE_ENABLED = true
+NATIVE_ENABLED = true
+
+# OCAMLPACKS[] = annexlib extlib num
+
+if $(not $(OCAMLFIND_EXISTS))
+   eprintln(This project requires ocamlfind, but is was not found.)
+   eprintln(You need to install ocamlfind and run "omake --configure".)
+   exit 1
+
+# Include the src subdirectory
+.SUBDIRS: src
